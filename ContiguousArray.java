@@ -1,7 +1,8 @@
 public class Solution {
     public int findMaxLength(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) nums[i] = -1;
+            if (nums[i] == 0) 
+                nums[i] = -1;
         }
         
         Map<Integer, Integer> sumToIndex = new HashMap<>();
@@ -20,4 +21,4 @@ public class Solution {
         
         return max;
     }
-}
+}ß

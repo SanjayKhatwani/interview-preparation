@@ -31,15 +31,15 @@ public int strStr(String haystack, String needle) {
 }
  
 //calculate KMP array
-public int[] getNext(String needle) {
-	int[] next = new int[needle.length()];
+public int[] getNext(String s) {
+	int[] next = new int[s.length()];
 
-	for (int i = 1; i < needle.length(); i++) {
+	for (int i = 1; i < s.length(); i++) {
 		int index = next[i - 1];
-		while (index > 0 && needle.charAt(index) != needle.charAt(i)) {
+		while (index > 0 && s.charAt(index) != s.charAt(i)) {
 			index = next[index - 1];
 		}
-		if (needle.charAt(index) == needle.charAt(i)) {
+		if (s.charAt(index) == s.charAt(i)) {
 			next[i] = next[i - 1] + 1;
 		} else {
 			next[i] = 0;

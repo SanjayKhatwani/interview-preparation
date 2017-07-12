@@ -1,3 +1,9 @@
+/*
+                  sum(P) - sum(N) = target
+sum(P) + sum(N) + sum(P) - sum(N) = target + sum(P) + sum(N)
+                       2 * sum(P) = target + sum(nums)
+*/
+                       
 public class Solution {
     public int findTargetSumWays(int[] nums, int S) {
         if (nums == null || nums.length == 0) {
