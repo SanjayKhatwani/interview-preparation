@@ -19,7 +19,8 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E> implements BlockingQ
     }
 
     public void put(E e) throws InterruptedException {
-        if (e == null) throw new NullPointerException();
+        if (e == null) 
+            throw new NullPointerException();
         final E[] items = this.items;
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -71,5 +72,5 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E> implements BlockingQ
         notFull.signal();
         return x;
     }
-    
+
 }
