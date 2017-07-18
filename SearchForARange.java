@@ -1,51 +1,32 @@
 public class Solution {
-    public int[] searchRange(int[] A, int target) {
-        if (A.length == 0) {
-            return new int[]{-1, -1};
-        }
-        
-        int[] bound = new int[2]; 
-        
-        // search for left bound
-        int start = 0; 
-        int end = A.length - 1;
-        while (start < end - 1) {
-            int mid = start + (end - start) / 2;
-            if (A[mid] < target) {
-                start = mid;
-            } else {
-                end = mid;
-            }
-        }
-        if (A[start] == target) {
-            bound[0] = start;
-        } else if (A[end] == target) {
-            bound[0] = end;
-        } else {
-            bound[0] = bound[1] = -1;
-            return bound;
-        }
-        
-        // search for right bound
-        start = 0;
-        end = A.length - 1;
-        while (start < end - 1) {
-            int mid = start + (end - start) / 2;
-            if (A[mid] >= target) {
-                end = mid;
-            } else {
-                start = mid;
-            }
-        }
-        if (A[end] == target) {
-            bound[1] = end;
-        } else if (A[start] == target) {
-            bound[1] = start;
-        } else {
-            bound[0] = bound[1] = -1;
-            return bound;
-        }
-        
-        return bound;
+
+    public int[] searchRange(int[] nums, int target) {
+        int index1 = binarySearch1(nums, target, 0, nums.length-1);
+        int index2 = binarySearch2(nums, target, 0, nums.length-1);
+        int[] result = {index1, index2};
+        return result;
     }
+    
+    public int binarySearch1(int[] nums, int target, int low, int high) {
+        if (low > high) return -1;
+        if (low == high) return nums[low] == target ? low : -1;
+        int mid = low + (high - low) / 2;
+        if (nums[mid] >= target) {
+            return binarySearch1(nums, target, low, mid);
+        } else {
+            return binarySearch1(nums, target, mid + 1, high);
+        }
+    }
+    
+    public int binarySearch2(int[] nums, int target, int low, int high) {
+        if (low > high) return -1;
+        if (low == high) return nums[low] == target ? low : -1;
+        int mid = low + (high - low) / 2 + 1;
+        if (nums[mid] <= target) {
+            return binarySearch2(nums, target, mid, high);
+        } else {
+            return binarySearch2(nums, target, low, mid - 1);
+        }
+    }
+    
 }

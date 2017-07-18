@@ -40,3 +40,29 @@ public class Solution {
         return sum;
     }
 }
+
+
+public class Solution {
+    public int depthSum(List<NestedInteger> nestedList) {
+        Queue<NestedInteger> queue = new LinkedList<>();
+        for (NestedInteger i : nestedList)
+            queue.offer(i);
+        int sum = 0;
+        int level = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                NestedInteger curr = queue.poll();
+                if (curr.isInteger()) {
+                    sum += curr.getInteger() * level;
+                } else {
+                    for (NestedInteger n : curr.getList()) {
+                        queue.offer(n);
+                    }
+                }
+            }
+            level++;
+        }
+        return sum;
+    }
+}

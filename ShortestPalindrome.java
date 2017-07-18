@@ -11,29 +11,19 @@ Given "abcd", return "dcbabcd".
 
 public class Solution {
     public String shortestPalindrome(String s) {
-        if (s == null || s.length() == 0)
-            return "";
-        if (s.length() <= 1)
-            return s;
-        int[] lsp = buildLsp(s + "#" + new StringBuilder(s).reverse().toString());
-        return new StringBuilder(s.substring(lsp[2*s.length()])).reverse().toString() + s;
-        
+        String str = s + "#" + new StringBuilder(s).reverse().toString();
+        int[] next = nextTable(str);
+        return new StringBuilder(s.substring(next[next.length - 1])).reverse() + s;
     }
     
-    private int[] buildLsp(String s) {
-        int[] lsp = new int[s.length()];
-        lsp[0] = 0;
-        for (int i = 1; i < lsp.length; i++) {
-            int j = lsp[i - 1];
-            while (j > 0 && s.charAt(j) != s.charAt(i)) {
-                j = lsp[j - 1];
-            }
-            if (s.charAt(j) == s.charAt(i)) {
-                lsp[i] = j + 1;
-            } else {
-                lsp[i] = 0;
-            }
+    private int[] nextTable(String s) {
+        int[] next = new int[s.length()];
+        for (int i = 1; i < s.length(); i++) {
+            int index = next[i - 1];
+            while (index > 0 && s.charAt(index) != s.charAt(i)) 
+                index = next[index - 1];
+            next[i] = s.charAt(i) == s.charAt(index) ? index + 1 : 0;
         }
-        return lsp;
+        return next;
     }
 }

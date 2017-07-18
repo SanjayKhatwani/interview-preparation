@@ -8,7 +8,7 @@ public class Solution {
         int len = 2;
         Set<String> beginSet = new HashSet<>();
         Set<String> endSet = new HashSet<>();
-	    Set<String> dict = new HashSet<String>(wordList); // has to convert it to set because set use O(1) to contains and remove, but List use O(n). because hashset is like a hashtable. 考点！！！
+	    Set<String> dict = new HashSet<>(wordList); // has to convert it to set because set use O(1) to contains and remove, but List use O(n). because hashset is like a hashtable. 考点！！！
 
         beginSet.add(beginWord);
 	    endSet.add(endWord);
