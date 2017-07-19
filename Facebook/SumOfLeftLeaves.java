@@ -1,23 +1,19 @@
 public class Solution {
-    
     public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) return 0;
         int sum = 0;
-        if (root == null) return sum;
-        if (root.left != null) {
-            if (isLeaf(root.left)) {
-                sum += root.left.val;
-            } else {
-                sum = sum + sumOfLeftLeaves(root.left);
-            }
+        if (isLeaf(root.left)) {
+            sum += root.left.val;
+        } else {
+            sum = sumOfLeftLeaves(root.left);
         }
-        return sum + sumOfLeftLeaves(root.right);
-        
+        sum += sumOfLeftLeaves(root.right);
+        return sum;
     }
     
     private boolean isLeaf(TreeNode node) {
-        return node.left == null && node.right == null;
+        return node != null && node.left == null && node.right == null;
     }
-    
 }
 
 
@@ -41,6 +37,6 @@ public int sumOfLeftLeaves(TreeNode root) {
                 stack.push(node.right);
         }
     }
-    
+
     return ans;
 }
