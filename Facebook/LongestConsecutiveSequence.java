@@ -4,8 +4,7 @@ public class Solution {
         Map<Integer, Integer> map = new HashMap<>();
         int longest = 1;
         for (int num : nums) {
-            if (map.containsKey(num))
-                continue;
+            if (map.containsKey(num)) continue; // deduplicate
             int leftLen = map.getOrDefault(num - 1, 0);
             int rightLen = map.getOrDefault(num + 1, 0);
             int currLen = leftLen + rightLen + 1;

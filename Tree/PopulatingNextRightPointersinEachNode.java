@@ -18,43 +18,36 @@ public class Solution {
 
 
 public class Solution {
-    
     public void connect(TreeLinkNode root) {
-
-        TreeLinkNode head = null; //head of the next level
-        TreeLinkNode prev = null; //the leading node on the next level
-        TreeLinkNode cur = root;  //current node of current level
-
-        while (cur != null) {
-            
-            while (cur != null) { //iterate on the current level
-                //left child
-                if (cur.left != null) {
-                    if (prev != null) {
-                        prev.next = cur.left;
-                    } else {
-                        head = cur.left;
-                    }
-                    prev = cur.left;
+        TreeLinkNode parent = root;
+        TreeLinkNode pre = null;
+        TreeLinkNode next = null;
+        while (parent != null) { // loop to next level
+            while (parent != null) { // loop in current level
+                if (next == null) {
+                    next = (parent.left != null) ? parent.left: parent.right;
                 }
-                //right child
-                if (cur.right != null) {
-                    if (prev != null) {
-                        prev.next = cur.right;
+                if (parent.left != null) {
+                    if (pre == null) {
+                        pre = parent.left;
                     } else {
-                        head = cur.right;
+                        pre.next = parent.left;
+                        pre = pre.next;
                     }
-                    prev = cur.right;
                 }
-                //move to next node
-                cur = cur.next;
+                if (parent.right != null) {
+                    if (pre == null) {
+                        pre = parent.right;
+                    } else {
+                        pre.next = parent.right;
+                        pre = pre.next;
+                    }
+                }
+                parent = parent.next;
             }
-            
-            //move to next level
-            cur = head;
-            head = null;
-            prev = null;
+            parent = next;
+            next = null;
+            pre = null;
         }
-        
     }
 }

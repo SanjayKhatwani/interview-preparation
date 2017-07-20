@@ -1,27 +1,27 @@
 public class Solution {
     public int leastInterval(char[] tasks, int n) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (char c : tasks) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
-        }
-        int cycle = n + 1;
-        int total = 0;
+        int[] arr = new int[25];
+        for (char c : tasks) arr[c - 'A']++;
         Queue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
-        List<Integer> cool = new LinkedList<>();
-        pq.addAll(map.values());
+        for (int a : arr) {
+            if (a > 0) pq.offer(a);
+        }
+        List<Integer> coolDown = new LinkedList<>();
+        int total = 0;
+        int cycle = n + 1;
         while (!pq.isEmpty()) {
             int workTime = 0;
             for (int i = 0; i < cycle; i++) {
                 if (pq.isEmpty()) break;
-                cool.add(pq.poll() - 1);
+                coolDown.add(pq.poll() - 1);
                 workTime++;
             }
-            for (int a : cool) {
-                if (a > 0) pq.offer(a);
+            for (int num : coolDown) {
+                if (num > 0) pq.offer(num);
             }
-            cool.clear();
+            coolDown.clear();
             total += pq.isEmpty() ? workTime : cycle;
-        }
+        } 
         return total;
     }
 }

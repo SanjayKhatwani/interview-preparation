@@ -1,43 +1,40 @@
 public class Codec {
 
+    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        if (root == null) return "";
+        if (root == null) return "null";
         Queue<TreeNode> q = new LinkedList<>();
-        StringBuilder res = new StringBuilder();
-        q.add(root);
+        q.offer(root);
+        StringBuilder builder = new StringBuilder();
         while (!q.isEmpty()) {
-            TreeNode node = q.poll();
-            if (node == null) {
-                res.append("n ");
-                continue;
+            TreeNode curr = q.poll();
+            builder.append(curr == null ? "null," : curr.val + ",");
+            if (curr != null) {
+                q.offer(curr.left);
+                q.offer(curr.right);
             }
-            res.append(node.val + " ");
-            q.add(node.left);
-            q.add(node.right);
         }
-        return res.toString();
+        return builder.toString();
     }
 
+    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data == "") return null;
+        if ("null".equals(data)) return null;
+        String[] vals = data.split(",");
         Queue<TreeNode> q = new LinkedList<>();
-        String[] values = data.split(" ");
-        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
-        q.add(root);
-        for (int i = 1; i < values.length; i++) {
-            TreeNode parent = q.poll();
-            if (!values[i].equals("n")) {
-                TreeNode left = new TreeNode(Integer.parseInt(values[i]));
-                parent.left = left;
-                q.add(left);
+        TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
+        q.offer(root);
+        for (int i = 1; i < vals.length; i++) {
+            TreeNode curr = q.poll();
+            if (!vals[i].equals("null")) {
+                curr.left = new TreeNode(Integer.parseInt(vals[i]));
+                q.offer(curr.left);
             }
-            if (!values[++i].equals("n")) {
-                TreeNode right = new TreeNode(Integer.parseInt(values[i]));
-                parent.right = right;
-                q.add(right);
+            if (!vals[++i].equals("null")) {
+                curr.right = new TreeNode(Integer.parseInt(vals[i]));
+                q.offer(curr.right);
             }
         }
         return root;
     }
-    
 }

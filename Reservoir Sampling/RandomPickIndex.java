@@ -1,4 +1,5 @@
 public class Solution {
+
     int[] nums;
     Random rand;
 
@@ -8,16 +9,14 @@ public class Solution {
     }
     
     public int pick(int target) {
-        int result = -1;
+        int idx = -1;
         int count = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == target) {
-                count++;
-                if (rand.nextInt(count) == 0)
-                    result = i;
+                idx = (rand.nextInt(++count) == 0 ? i : idx);
             }
         }
         
-        return result;
+        return idx;
     }
 }
