@@ -17,15 +17,27 @@ public class Solution {
 // Can be from child to parent to child
 
 /*
-This solution is very simple. With every node, we associate two values/variables named inrinr and dcrdcr, where incrincr represents the length of the longest incrementing branch below the current node including itself, and dcrdcr represents the length of the longest decrementing branch below the current node including itself.
+This solution is very simple. With every node, we associate two values/variables named inrinr and dcrdcr, 
+where incrincr represents the length of the longest incrementing branch below the current node including itself, 
+and dcrdcr represents the length of the longest decrementing branch below the current node including itself.
 
-We make use of a recursive function longestPath(node) which returns an array of the form [inr, dcr][inr,dcr] for the calling node. We start off by assigning both inrinr and dcrdcr as 1 for the current node. This is because the node itself always forms a consecutive increasing as well as decreasing path of length 1.
+We make use of a recursive function longestPath(node) which returns an array of the form [inr, dcr][inr,dcr] for the calling node. 
+We start off by assigning both inrinr and dcrdcr as 1 for the current node. 
+This is because the node itself always forms a consecutive increasing as well as decreasing path of length 1.
 
-Then, we obtain the length of the longest path for the left child of the current node using longestPath[root.left]. Now, if the left child is just smaller than the current node, it forms a decreasing sequence with the current node. Thus, the dcrdcr value for the current node is stored as the left child's dcrdcr value + 1. But, if the left child is just larger than the current node, it forms an incrementing sequence with the current node. Thus, we update the current node's inrinr value as left\_child(inr) + 1left_child(inr)+1.
+Then, we obtain the length of the longest path for the left child of the current node using longestPath[root.left]. 
+Now, if the left child is just smaller than the current node, it forms a decreasing sequence with the current node. 
+Thus, the dcrdcr value for the current node is stored as the left child's dcrdcr value + 1. 
+But, if the left child is just larger than the current node, it forms an incrementing sequence with the current node. 
+Thus, we update the current node's inrinr value as left\_child(inr) + 1left_child(inr)+1.
 
-Then, we do the same process with the right child as well. But, for obtaining the inrinr and dcrdcr value for the current node, we need to consider the maximum value out of the two values obtained from the left and the right child for both inrinr and dcrdcr, since we need to consider the longest sequence possible.
+Then, we do the same process with the right child as well. 
+But, for obtaining the inrinr and dcrdcr value for the current node, 
+we need to consider the maximum value out of the two values obtained from the left and the right child for both inrinr and dcrdcr, 
+since we need to consider the longest sequence possible.
 
-Further, after we've obtained the final updated values of inrinr and dcrdcr for a node, we update the length of the longest consecutive path found so far as maxval = \text{max}(inr + dcr - 1)maxval=max(inr+dcr−1).
+Further, after we've obtained the final updated values of inrinr and dcrdcr for a node, 
+we update the length of the longest consecutive path found so far as maxval = \text{max}(inr + dcr - 1)maxval=max(inr+dcr−1).
 */
 public class Solution {
     int maxval = 0;
